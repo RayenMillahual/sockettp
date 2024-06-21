@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Llamar Ticket</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Llamar Ticket</h1>
+  <button id="nextTicket">Llamar Siguiente Ticket</button>
+  <button id="resetTickets">Reiniciar Tickets</button>
+
+  <script>
+    const socket = io();
+
+    document.getElementById('nextTicket').addEventListener('click', () => {
+      socket.emit('nextTicket');
+    });
+
+    document.getElementById('resetTickets').addEventListener('click', () => {
+      socket.emit('resetTickets');
+    });
+  </script>
+</body>
+</html>

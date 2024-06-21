@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Estadísticas de Tickets</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Estadísticas de Tickets</h1>
+  <ul id="stats"></ul>
+
+  <script>
+    const socket = io();
+
+    socket.on('state', (state) => {
+      const stats = Object.keys(state.ticketsByDay).map(date => 
+        `<li>${date}: ${state.ticketsByDay[date]} tickets atendidos</li>`
+      ).join('');
+      document.getElementById('stats').innerHTML = stats || '<li>Ninguno</li>';
+    });
+  </script>
+</body>
+</html>

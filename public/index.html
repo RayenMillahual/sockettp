@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Tickets</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Ticket Actual</h1>
+  <div id="currentTicket">0</div>
+  <h2>Últimos 3 Tickets</h2>
+  <ul id="lastTickets">
+    <li>Ninguno</li>
+  </ul>
+
+  <script>
+    const socket = io();
+
+    socket.on('state', (state) => {
+      document.getElementById('currentTicket').innerText = state.currentTicket;
+      const lastTickets = state.ticketQueue.map(ticket => `<li>Ticket ${ticket}</li>`).join('');
+      document.getElementById('lastTickets').innerHTML = lastTickets || '<li>Ninguno</li>';
+    });
+
+    socket.on('playSound', () => {
+      const audio = new Audio('/sound.mp3');
+      audio.play();
+    });
+  </script>
+</body>
+</html>
